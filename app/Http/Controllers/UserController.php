@@ -13,9 +13,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('Dashboard', ['users'=>User::all()]);
+        $users = User::orderBy($request->query("sort"))->paginate(10);
+        return Inertia::render('Dashboard', ['users'=>$users, 'sort'=> $request->query("sort")]);
     }
 
     /**

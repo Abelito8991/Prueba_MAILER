@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('role');
-            $table->integer('phoneNumber')->nullable();
+            $table->string('phoneNumber')->nullable();
             $table->string('cedula');
             $table->date('bdate');
             $table->integer('zipcode');
