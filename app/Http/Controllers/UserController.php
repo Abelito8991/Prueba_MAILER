@@ -15,8 +15,14 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::orderBy($request->query("sort"))->paginate(10);
-        return Inertia::render('Dashboard', ['users'=>$users, 'sort'=> $request->query("sort")]);
+        $sort = $request->query("sort") ?? 'id';
+        $search = $request->query("search") ?? '';
+        $users = User::where('name', 'LIKE', '%'. $search.'%')
+                        ->orWhere('cedula', 'LIKE', '%'. $search.'%')
+                        ->orWhere('email', 'LIKE', '%'. $search.'%')
+                        ->orWhere('phoneNumber', 'LIKE', '%'. $search.'%')
+                        ->orderBy($sort)->paginate(10);
+        return Inertia::render('Dashboard', ['users'=>$users, 'sort'=> $sort, 'search'=> $search]);
     }
 
     /**

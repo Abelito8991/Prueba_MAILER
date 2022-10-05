@@ -3,10 +3,12 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/inertia-vue3';
 import { Link } from '@inertiajs/inertia-vue3';
 import Pagination from '../Components/Pagination.vue'
+import Filter from '../Components/Filter.vue'
 
 defineProps({
     users: Object,
-    sort: Object
+    sort: Object,
+    search: String
 });
 
 const edad = (bdate)=>{
@@ -18,7 +20,7 @@ const edad = (bdate)=>{
 
 <template>
     <Head title="Admin Dashboard" />
-
+    
     <AuthenticatedLayout>
         <template #header>
             <div class="flex flex-row justify-between">
@@ -35,7 +37,8 @@ const edad = (bdate)=>{
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-10">
+                <div v-if="users" class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-10">
+                    <Filter class="mt-2 w-full" :search="search"/>
                     <table class=" bg-white border-b border-gray-200 w-full">
                         <tr class="justify-around w-full">
                             <Link class="hover:cursor-pointer hover:bg-slate-300 hover:rounded-md" as="th" :href="route('dashboard', {sort:'id'})">Id</Link>
@@ -65,7 +68,7 @@ const edad = (bdate)=>{
                             <th>{{user.city}}</th>
                         </tr>
                     </table>
-                    <Pagination class="mt-6 w-full" :links="users.links" :sort="sort"/>
+                    <Pagination v-if="users" class="mt-6 w-full" :links="users.links" :sort="sort"/>
                 </div>
             </div>
         </div>
