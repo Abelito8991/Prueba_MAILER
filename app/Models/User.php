@@ -22,6 +22,13 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'phoneNumber',
+        'cedula',
+        'bdate',
+        'zipcode',
+        'country',
+        'state',
+        'city',
     ];
 
     /**
@@ -39,7 +46,14 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    // ];
+
+    public function isAdmin(){
+
+        if($this->role == 'Admin')
+            return true;
+
+    }
 }

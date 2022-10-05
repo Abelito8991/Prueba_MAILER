@@ -19,8 +19,15 @@ class AdminSeeder extends Seeder
         DB::table('users')->insert([
             'name'    => 'Abelito' ,
             'email'   => 'estevez8991@gmail.com' ,
-            'password'=> Hash::make('Abelito8991') ,
+            'password'=> Hash::make('1234') ,
             'role'    => 'Admin' ,
+            'phoneNumber'   => 58297981,
+            'cedula'    => 980402,
+            'bdate' => now(),
+            'zipcode'   => 98,
+            'country'   => 'Cuba',
+            'state' => 'La Habana',
+            'city'  => 'Lisa',
         ]);
     }
 }
