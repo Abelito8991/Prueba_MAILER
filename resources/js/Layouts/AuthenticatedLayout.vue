@@ -26,7 +26,14 @@ const showingNavigationDropdown = ref(false);
                             </div>
 
                             <!-- Navigation Links -->
-                            
+                            <div v-if="$page.props.auth.user.role=='Admin'" class="space-x-3 mx-10 my-auto">
+                                <Link class="rounded-md border p-4" :href="route('dashboard')">
+                                    Modulo de Usuarios
+                                </Link>
+                                <Link class="rounded-md border p-4" :href="route('userDashboard')">
+                                    Modulo de Email
+                                </Link>
+                            </div>
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">

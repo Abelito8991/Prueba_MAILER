@@ -32,6 +32,8 @@ const state = ref([])
 const city = ref([])
 const tokenCountries = ref('')
 
+// Pedir Token de la API de Universal Tutorial para Conseguir los paises con sus estados y ciudades,
+// Resalatar que aunque todos los paises que salen si tienen estados, o al menos casi todos, no todos los estados tienen ciudades
 const getToken = async ()=>{
     const res = await axios.get("https://www.universal-tutorial.com/api/getaccesstoken", {
         headers: {
@@ -44,6 +46,7 @@ const getToken = async ()=>{
     tokenCountries.value = res.data.auth_token
 }
 
+// Actualizar la lista de paises
 const updateCountries = async ()=>{
     const countries = await axios.get("https://www.universal-tutorial.com/api/countries/", {
         headers: {
@@ -53,6 +56,7 @@ const updateCountries = async ()=>{
     })
     country.value = countries.data
 }
+// Actualizar la lista de estados a partir del pais seleccionado
 const updateStates = async ()=>{
     const states = await axios.get("https://www.universal-tutorial.com/api/states/"+form.country, {
         headers: {
@@ -60,9 +64,9 @@ const updateStates = async ()=>{
             "Accept": "application/json"
         }
     })
-    console.log(states);
     state.value = states.data
 }
+// Actualizar la Lista de ciudades a partir del estado seleccionado
 const updateCities = async ()=>{
     const cities = await axios.get("https://www.universal-tutorial.com/api/cities/"+form.state, {
         headers: {

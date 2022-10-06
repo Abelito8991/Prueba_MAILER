@@ -5,7 +5,6 @@
     import PrimaryButton from '@/Components/PrimaryButton.vue';
     import Input from '@/Components/Input.vue';
     import { Head, useForm } from '@inertiajs/inertia-vue3';
-    import { ref, onBeforeMount } from 'vue';
    
     
     const form = useForm({
@@ -42,7 +41,7 @@
                 
                 <div class="flex items-center justify-end mt-4">
                     <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                        Register
+                        Send Email
                     </PrimaryButton>
                 </div>
             </form>

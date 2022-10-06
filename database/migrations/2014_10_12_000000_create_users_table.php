@@ -25,7 +25,6 @@ return new class extends Migration
             $table->string('country');
             $table->string('state');
             $table->string('city')->nullable();
-            // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

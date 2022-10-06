@@ -32,11 +32,11 @@ defineProps({
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <table class=" bg-white border-b w-full border-gray-200">
                         <tr class="justify-around w-full">
-                            <Link class="hover:cursor-pointer hover:bg-slate-300 hover:rounded-md" as="th" :href="route('dashboard')">Id</Link>
-                            <Link class="hover:cursor-pointer hover:bg-slate-300 hover:rounded-md" as="th" :href="route('dashboard')">From</Link>
-                            <Link class="hover:cursor-pointer hover:bg-slate-300 hover:rounded-md" as="th" :href="route('dashboard')">To</Link>
-                            <Link class="hover:cursor-pointer hover:bg-slate-300 hover:rounded-md" as="th" :href="route('dashboard')">Topic</Link>
-                            <Link class="hover:cursor-pointer hover:bg-slate-300 hover:rounded-md" as="th" :href="route('dashboard')">Status</Link>
+                            <Link class="hover:bg-slate-300 hover:rounded-md" as="th">Id</Link>
+                            <Link class="hover:bg-slate-300 hover:rounded-md" as="th">From</Link>
+                            <Link class="hover:bg-slate-300 hover:rounded-md" as="th">To</Link>
+                            <Link class="hover:bg-slate-300 hover:rounded-md" as="th">Topic</Link>
+                            <Link class="hover:bg-slate-300 hover:rounded-md" as="th">Status</Link>
                         </tr>
                         <br>
                         <tr v-for="mail in mails" class="justify-around w-full mt-10 text-center space-y-2">

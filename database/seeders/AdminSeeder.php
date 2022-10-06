@@ -19,9 +19,9 @@ class AdminSeeder extends Seeder
         DB::table('users')->insert([
             'name'    => 'Abelito' ,
             'email'   => 'estevez8991@gmail.com' ,
-            'password'=> Hash::make('1234') ,
+            'password'=> Hash::make('Abelito8991*') ,
             'role'    => 'Admin' ,
-            'phoneNumber'   => 58297981,
+            'phoneNumber'   => 5358297981,
             'cedula'    => 980402,
             'bdate' => now(),
             'zipcode'   => 98,

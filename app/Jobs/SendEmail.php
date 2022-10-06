@@ -12,6 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Inertia\Inertia;
 
 class SendEmail implements ShouldQueue
 {
@@ -36,7 +37,7 @@ class SendEmail implements ShouldQueue
     public function handle()
     {
         $email =  new Mailer($this->data);
-        ModelsMail::find($this->data->id)->update(['status'=>'Enviado']);
         Mail::to($this->data->to)->send($email);
+        ModelsMail::find($this->data->id)->update(['status'=>'Enviado']);
     }
 }

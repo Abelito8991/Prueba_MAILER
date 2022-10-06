@@ -80,11 +80,7 @@ class RegisteredUserController extends Controller
     
         $user = User::find($request->id)->update([
             'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'User',
             'phoneNumber'   => $request->phoneNumber,
-            'cedula'    => $request->cedula,
             'bdate' => $request->bdate,
             'zipcode'   => $request->zipcode,
             'country'   => $request->country,

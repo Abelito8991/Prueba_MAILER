@@ -53,14 +53,7 @@ const update = async(e, user) =>{
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                     Modulo de Usuarios
                 </h2>
-                <div class="space-x-3">
-                    <Link class="rounded-md border p-4" :href="route('dashboard')">
-                        Modulo de Usuarios
-                    </Link>
-                    <Link class="rounded-md border p-4" :href="route('userDashboard')">
-                        Modulo de Email
-                    </Link>
-                </div>
+                
                 <Link :href="route('register')">
                     <button class="border rounded-md p-3 hover:bg-slate-300">
                         Registrar Nuevo Usuario

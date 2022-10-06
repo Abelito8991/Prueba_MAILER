@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\UserController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
