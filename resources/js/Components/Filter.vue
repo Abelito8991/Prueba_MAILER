@@ -1,8 +1,8 @@
 <template>
-    <form>
+    <form @submit.prevent="buscar">
         <div class="flex flex-row justify-end space-x-4">
             <InputLabel for="search" value="Filter" class="text-lg"/>
-            <Input id="search" type="search" class="mt-1 block" autofocus v-model="form.search" :onkeyup="buscar"/>
+            <Input id="search" type="search" class="mt-1 block" autofocus v-model="form.search"/>
         </div>
     </form>
 </template>

@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendEmail;
+use App\Mail\Mailer;
+use App\Models\Mail;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail as FacadesMail;
 use Inertia\Inertia;
 
-class UserController extends Controller
+class EmailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,16 +19,12 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $sort = $request->query("sort") ?? 'id';
-        $search = $request->query("search") ?? '';
-        $users = User::where(function($q)use($search){
-           $q->where('name', 'LIKE', '%'. $search.'%')
-           ->orWhere('cedula', 'LIKE', '%'. $search.'%')
-           ->orWhere('email', 'LIKE', '%'. $search.'%')
-           ->orWhere('phoneNumber', 'LIKE', '%'. $search.'%');
-        })->where('role', 'User')
-                        ->orderBy($sort)->paginate(10);
-        return Inertia::render('Dashboard', ['users'=>$users, 'sort'=> $sort, 'search'=> $search]);
+        if($request->user()->isAdmin()){
+            $mails = Mail::all();
+        }else{
+            $mails = Mail::where('from', auth()->user()->email)->get();
+        }
+        return Inertia::render('User', ['mails'=>$mails]);
     }
 
     /**
@@ -34,7 +34,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Auth/CreateEmail');
     }
 
     /**
@@ -45,7 +45,24 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'to'    => ['email', 'required'],
+            'topic' => ['max:100', 'required', 'string'],
+            'body'   => ['required', 'string']
+        ]);
+
+
+        $email = Mail::create([
+            'from'  => $request->user()->email,
+            'to'    => $request->to,
+            'topic' => $request->topic,
+            'body'  => $request->body,
+            'status'=> 'Enviando'
+        ]);
+
+        dispatch(new SendEmail($email));
+
+        return to_route('userDashboard');
     }
 
     /**
@@ -90,8 +107,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete();
-
-        to_route('dashboard');
+        //
     }
 }

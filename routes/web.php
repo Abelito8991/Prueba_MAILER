@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -21,10 +22,9 @@ Route::get('/', function(){
 })->middleware('guest');
 
 Route::get('/dashboard', [UserController::class, 'index'])->middleware(['auth', 'admin'])->name('dashboard');
+Route::post('/user-destroy/{id}', [UserController::class, 'destroy'])->middleware(['auth', 'admin'])->name('user.destroy');
 
-Route::get('/user-dashboard', function(){
-    return Inertia::render('User');
-})->middleware(['auth', 'user'])->name('userDashboard');
+Route::get('/user-dashboard', [EmailController::class, 'index'])->middleware(['auth'])->name('userDashboard');
 
 
 require __DIR__.'/auth.php';
