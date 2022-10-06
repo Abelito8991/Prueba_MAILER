@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import Pagination from '../Components/Pagination.vue'
 import Filter from '../Components/Filter.vue'
+import axios from 'axios';
 
 const formDelete = useForm({
     id:''
@@ -24,6 +25,23 @@ const deleteUser = (id) => {
     formDelete.post(route('user.destroy', {id}));
 };
 
+const update = async(e, user) =>{
+    const valueBefore = user[e.target.id]
+    const value = e.target.value
+    if(value!==user[e.target.id]){
+        user[e.target.id] = value
+        try{
+            const res = await axios.post('update',{
+            ...user
+            })
+        } catch(err){
+            console.log(e.target.value);
+            e.target.value = valueBefore
+            user[e.target.id] = valueBefore
+        }
+    }
+}
+
 </script>
 
 <template>
@@ -35,6 +53,14 @@ const deleteUser = (id) => {
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                     Modulo de Usuarios
                 </h2>
+                <div class="space-x-3">
+                    <Link class="rounded-md border p-4" :href="route('dashboard')">
+                        Modulo de Usuarios
+                    </Link>
+                    <Link class="rounded-md border p-4" :href="route('userDashboard')">
+                        Modulo de Email
+                    </Link>
+                </div>
                 <Link :href="route('register')">
                     <button class="border rounded-md p-3 hover:bg-slate-300">
                         Registrar Nuevo Usuario
@@ -64,16 +90,16 @@ const deleteUser = (id) => {
                         <br>
                         <tr v-for="user in users.data" class="justify-around w-full mt-10 text-left">
                             <th>{{user.id}}</th>
-                            <th><input class="border-none text-center" type="text" disable :value="user.name"></th>
+                            <th><input @blur="(e)=>{update(e, user)}" @keyup.enter="(e)=>{update(e, user)}" id="name" class="border-none text-center" type="text" disable :value="user.name"></th>
                             <th>{{user.email}}</th>
-                            <th><input class="border-none text-center" type="text" disable :value="user.phoneNumber ?? 'No tiene'"></th>
+                            <th><input @blur="(e)=>{update(e, user)}" @keyup.enter="(e)=>{update(e, user)}" id="phoneNumber" class="border-none text-center" type="tel" disable :value="user.phoneNumber"></th>
                             <th>{{user.cedula}}</th>
-                            <th><input class="border-none text-center" type="text" disable :value="user.bdate"></th>
+                            <th><input @blur="(e)=>{update(e, user)}" @keyup.enter="(e)=>{update(e, user)}" id="bdate" class="border-none text-center" type="date" disable :value="user.bdate"></th>
                             <th>{{edad(user.bdate)}}</th>
-                            <th><input class="border-none text-center" type="text" disable :value="user.zipcode"></th>
-                            <th><input class="border-none text-center" type="text" disable :value="user.country"></th>
-                            <th><input class="border-none text-center" type="text" disable :value="user.state"></th>
-                            <th><input class="border-none text-center" type="text" disable :value="user.city"></th>
+                            <th><input @blur="(e)=>{update(e, user)}" @keyup.enter="(e)=>{update(e, user)}" id="zipcode" class="border-none text-center" type="number" disable :value="user.zipcode"></th>
+                            <th><input @blur="(e)=>{update(e, user)}" @keyup.enter="(e)=>{update(e, user)}" id="country" class="border-none text-center" type="text" disable :value="user.country"></th>
+                            <th><input @blur="(e)=>{update(e, user)}" @keyup.enter="(e)=>{update(e, user)}" id="state" class="border-none text-center" type="text" disable :value="user.state"></th>
+                            <th><input @blur="(e)=>{update(e, user)}" @keyup.enter="(e)=>{update(e, user)}" id="city" class="border-none text-center" type="text" disable :value="user.city"></th>
                             <button @click="()=>{deleteUser(user.id)}">
                                 <svg class="w-4" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                     viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">

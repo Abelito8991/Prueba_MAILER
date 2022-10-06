@@ -15,6 +15,7 @@ Route::get('register', [RegisteredUserController::class, 'create'])->middleware(
             ->name('register');
 
 Route::post('register', [RegisteredUserController::class, 'store'])->middleware('admin');
+Route::post('update', [RegisteredUserController::class, 'update'])->middleware('admin');
 
 Route::get('create-email', [EmailController::class, 'create'])->middleware('auth')->name('email-create');
 Route::post('create-email', [EmailController::class, 'store'])->middleware('auth')->name('email-send');

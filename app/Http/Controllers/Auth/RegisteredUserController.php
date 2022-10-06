@@ -46,7 +46,7 @@ class RegisteredUserController extends Controller
             'state'         => ['string'],
             'city'          => ['string', 'nullable'],
         ]);
-
+    
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -60,7 +60,39 @@ class RegisteredUserController extends Controller
             'state' => $request->state,
             'city'  => $request->city,
         ]);
-
+    
         return redirect(RouteServiceProvider::HOME);
+    }
+
+
+    public function update(Request $request)
+    {
+
+        $request->validate([
+            'name'          => ['string', 'max:255', 'nullable'],
+            'phoneNumber'   => [ 'digits:10', 'nullable'],
+            'bdate'         => ['date', 'before:-18years', 'nullable'],
+            'zipcode'       => ['numeric', 'nullable'],
+            'country'       => ['string', 'nullable'],
+            'state'         => ['string', 'nullable'],
+            'city'          => ['string', 'nullable'],
+        ]);
+    
+        $user = User::find($request->id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'User',
+            'phoneNumber'   => $request->phoneNumber,
+            'cedula'    => $request->cedula,
+            'bdate' => $request->bdate,
+            'zipcode'   => $request->zipcode,
+            'country'   => $request->country,
+            'state' => $request->state,
+            'city'  => $request->city,
+        ]);
+
+        return Inertia::render('Dashboard');
+    
     }
 }
